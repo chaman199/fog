@@ -1,0 +1,748 @@
+var arr=[]
+$(document).ready(function(){
+    $.ajax({
+        url: "apis/map.php",
+        async: "false",
+        success: function(result) {
+            arr=[]
+            data = JSON.parse(result)
+            var datalen = data.length
+            for (i = 0; i < datalen; i += 1) {
+                arr.push(data[i][0])
+            }
+            
+        }
+    })
+
+});
+function checkModel(element){
+
+    var fs = document.getElementById("myInputFirst").value;
+    if(fs==""){
+        alert("Enter the city first");
+        return;
+    }
+    // var mn = element.getAttribute("modelno");
+    var mn = element;
+    document.getElementById("model-choose").textContent = "Model "+mn
+    // if(mn==4){
+    //     document.getElementById('mod4').style["display"] = "block";
+    // }
+    // else{
+    //     document.getElementById('mod4').style["display"] = "none";
+    // }
+    onModelChange(element)
+}
+$(document).on({
+    ajaxStart: function(){
+        $("#page").LoadingOverlay("show");
+
+    },
+    ajaxStop: function(){
+        $("#page").LoadingOverlay("hide");
+    }    
+});
+function onModelChange(element){
+
+    var fs = document.getElementById("myInputFirst").value;
+    if(fs==""){
+        alert("Enter the city first");
+        $("#page").LoadingOverlay("hide");
+
+        return;
+    }
+    
+    
+    console.log(document.getElementById("model-choose"));
+    // var mn = element.getAttribute("modelno");
+    var mn = element;
+    // if(mn>400)
+    // document.getElementById("hr-choose").textContent = element.text;
+    // else if(mn==4)
+    // document.getElementById("hr-choose").textContent = "3 hour";
+
+    // var fs = document.getElementById("myInputFirst").value;
+    var fogdata1 = [],
+        fogdata2 = [],
+        fogdata3=[],
+        fogdata4=[],
+        fogdata5=[],
+        fogdata6=[],
+        fogdata7=[],
+        fogdata8=[] 
+    var url1=""
+    // if(mn==460){
+    //     url1 = "apis/curvspred.php?station=" + fs+"&modelno=4&status=2";
+    // }
+    // else{
+        // url1 = 
+    // }
+    if(mn!=4){
+        $.ajax({
+            url: "apis/findlast.php?station=" + fs,
+            success: function(result) {
+                var data = JSON.parse(result)
+                var ent = new Date(0);
+                ent.setUTCSeconds(data[0]/1000);
+                $.ajax({
+                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno="+mn+"&status=1",
+                    success: function(result) {
+                        var data = JSON.parse(result)
+                        var dataLength = data.length,
+                            i = 0;
+            
+                        for (i; i < dataLength; i += 1) {
+                            fogdata2.push([
+                                data[i][0],
+                                data[i][1]
+                            ]);
+            
+                        }
+                        var stime = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                        stime.setUTCSeconds(data[0][0]/1000);
+                        var etime = new Date(0);
+                        etime.setUTCSeconds(data[dataLength-1][0]/1000);
+                        
+                        $.ajax({
+                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toLocaleString()+"&etime="+etime.toLocaleString()+"&status=0",
+                            success: function(result) {
+                                var data = JSON.parse(result)
+                                var dataLength = data.length,
+                                    i = 0;
+                    
+                                for (i; i < dataLength; i += 1) {
+                                    fogdata1.push([
+                                        data[i][0],
+                                        data[i][1] * 1.60934
+                                    ]);
+                    
+                                }
+                                comparechart(fs, fogdata1,fogdata2);
+                            }
+                        }) 
+                    }    
+                });
+            }
+        })
+    }
+    else{
+        document.getElementById('rmsec').style["display"] = "block";
+        $.ajax({
+            url: "apis/findlast.php?station=" + fs,
+            success: function(result) {
+                var data = JSON.parse(result)
+                var ent = new Date(0);
+                ent.setUTCSeconds(data[0]/1000);
+                $.ajax({
+                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=405&status=1",
+                    success: function(result) {
+                        var data = JSON.parse(result)
+                        var dataLength = data.length,
+                            i = 0;
+            
+                        for (i; i < dataLength; i += 1) {
+                            fogdata2.push([
+                                data[i][0],
+                                data[i][1]
+                            ]);
+            
+                        }
+                        $.ajax({
+                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=410&status=1",
+                            success: function(result) {
+                                var data = JSON.parse(result)
+                                var dataLength = data.length,
+                                    i = 0;
+                    
+                                for (i; i < dataLength; i += 1) {
+                                    fogdata3.push([
+                                        data[i][0],
+                                        data[i][1]
+                                    ]);
+                    
+                                }
+                                $.ajax({
+                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=415&status=1",
+                                    success: function(result) {
+                                        var data = JSON.parse(result)
+                                        var dataLength = data.length,
+                                            i = 0;
+                            
+                                        for (i; i < dataLength; i += 1) {
+                                            fogdata4.push([
+                                                data[i][0],
+                                                data[i][1]
+                                            ]);
+                            
+                                        }
+                                        $.ajax({
+                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=420&status=1",
+                                            success: function(result) {
+                                                var data = JSON.parse(result)
+                                                var dataLength = data.length,
+                                                    i = 0;
+                                    
+                                                for (i; i < dataLength; i += 1) {
+                                                    fogdata5.push([
+                                                        data[i][0],
+                                                        data[i][1]
+                                                    ]);
+                                    
+                                                }
+                                                $.ajax({
+                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=425&status=1",
+                                                    success: function(result) {
+                                                        var data = JSON.parse(result)
+                                                        var dataLength = data.length,
+                                                            i = 0;
+                                            
+                                                        for (i; i < dataLength; i += 1) {
+                                                            fogdata6.push([
+                                                                data[i][0],
+                                                                data[i][1]
+                                                            ]);
+                                            
+                                                        }
+                                                        $.ajax({
+                                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=460&status=1",
+                                                            success: function(result) {
+                                                                var data = JSON.parse(result)
+                                                                var dataLength = data.length,
+                                                                    i = 0;
+                                                    
+                                                                for (i; i < dataLength; i += 1) {
+                                                                    fogdata8.push([
+                                                                        data[i][0],
+                                                                        data[i][1]
+                                                                    ]);
+                                                    
+                                                                }
+                                                                $.ajax({
+                                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=4&status=1",
+                                                                    success: function(result) {
+                                                                        var data = JSON.parse(result)
+                                                                        var dataLength = data.length,
+                                                                            i = 0;
+                                                            
+                                                                        for (i; i < dataLength; i += 1) {
+                                                                            fogdata7.push([
+                                                                                data[i][0],
+                                                                                data[i][1]
+                                                                            ]);
+                                                            
+                                                                        }
+                                                                        var stime = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                                                                        stime.setUTCSeconds(data[0][0]/1000);
+                                                                        
+                                                                        $.ajax({
+                                                                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toLocaleString()+"&etime="+ent.toLocaleString()+"&status=0",
+                                                                            success: function(result) {
+                                                                                var data = JSON.parse(result)
+                                                                                var dataLength = data.length,
+                                                                                    i = 0;
+                                                                    
+                                                                                for (i; i < dataLength; i += 1) {
+                                                                                    fogdata1.push([
+                                                                                        data[i][0],
+                                                                                        data[i][1] * 1.60934
+                                                                                    ]);
+                                                                    
+                                                                                }
+                                                                                comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6,fogdata7,fogdata8);
+                                                                            }
+                                                                        })
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                                    
+                                            }
+                                        })
+                                                
+                                    }
+                                })
+                                            
+                            }
+                        })
+                                        
+                    }
+                })
+            }
+        })
+                            
+    }
+}
+function comparechart(fs, fogdata1,fogdata2) {
+    document.getElementById('curvspred-div').style["display"] = "block";
+
+    var charts = []
+    charts.push(
+        Highcharts.stockChart('curvspred', {
+            chart: {
+                height: 600,
+                events: {
+                    load: function () {
+                        $(".highcharts-legend-item path").attr('stroke-width', 4);
+                    },
+                    redraw: function () {
+                        $(".highcharts-legend-item path").attr('stroke-width', 4);
+                    }
+                }
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        chart: {
+                            height: 400
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        navigator: {
+                            enabled: false
+                        }
+                    }
+                }]
+            },
+            scrollbar: {
+                barBackgroundColor: 'gray',
+                barBorderRadius: 7,
+                barBorderWidth: 0,
+                buttonBackgroundColor: 'gray',
+                buttonBorderWidth: 0,
+                buttonBorderRadius: 7,
+                trackBackgroundColor: 'none',
+                trackBorderWidth: 1,
+                trackBorderRadius: 8,
+                trackBorderColor: '#CCC'
+            },
+            rangeSelector: {
+                buttons: [{
+                        type: 'day',
+                        count: 1,
+                        text: '1d'
+                    }, {
+                        type: 'week',
+                        count: 1,
+                        text: '1w'
+                    },
+                    {
+                        type: 'month',
+                        count: 1,
+                        text: '1m'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }
+                ],
+                inputEnabled: true,
+                selected: 0,
+
+            },
+            title: {
+                text: fs + ' Real-Data VS Predicted-Data',
+                style:{
+                    color: "#333333", 
+                    fontSize: "20px" 
+                }
+            },
+            xAxis: {
+                plotLines: [{
+                    color: '#FF0000', // Red
+                    width: 2,
+                    // value: fogdata1[fogdata1.length-1][0],
+                }],
+                // events: {
+                //     afterSetExtremes: function(e) {
+                //         charts.forEach(function(chart, i) {
+                //             if (i !== 0) {
+                //                 chart.xAxis[0].setExtremes(e.min, e.max)
+                //             }
+                //         })
+                //     }
+
+                // },
+                crosshair: true
+            },
+            yAxis: [{
+                min: 0,
+                labels: {
+                    align: 'right',
+                    x: -5
+                },
+                title: {
+                    text: 'Visibility(in km)',
+                    style: {
+                        fontSize: "16px",
+                        color: "red"
+                    }
+
+                },
+                top: '0%',
+                height: '100%',
+                offset: 10,
+                lineWidth: 0,
+                opposite: false,
+                resize: {
+                    enabled: true
+                },
+                plotBands:[
+                    {
+                        from:1,
+                        to:0,
+                        color:'rgb(255, 248, 238)'
+                    }
+                ],
+                plotLines: [{
+                    value: 1,
+                    width: 2,
+                    color: 'red',
+                    label: {
+                        text: '<div data-toggle="modal" class="line_allowable btn_toggle" href="#modal-form1"><span>Fog</span></div>',
+                        useHTML: true,
+                        style: {
+                            color: 'red',
+                        },
+                        align: 'left',
+                        x: -25,
+                        y: 12,
+                        events: {
+                            redraw: function() {
+                                alert('The chart is being redrawn');
+                            }
+                        }
+                    },
+                }]
+
+            }],
+            legend: {
+                enabled: true,
+                itemStyle:{
+                    fontSize:"15px"
+                }
+            },
+            series: [{
+                    name: "Real Values",
+                    data: fogdata1,
+                    type: 'spline',
+                    tooltip: {
+                        pointFormat: '<b>{point.y}</b>',
+                        valueDecimals: 2
+                    },
+                    yAxis: 0,
+                    dataGrouping: {
+                        approximation: 'average'
+                    }
+
+                },
+                {
+                    name: "Predicted Values",
+                    data: fogdata2,
+                    type: 'spline',
+                    tooltip: {
+                        pointFormat: '<b>{point.y}</b>',
+                        valueDecimals: 2
+                    },
+                    yAxis: 0,
+                    color: 'green',
+                    dataGrouping: {
+                        approximation: 'average'
+                    }
+
+                }
+            ],
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        menuItems: ["viewFullscreen", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+                    }
+                }
+            }
+        }, function(chart) {
+
+            // apply the date pickers
+            setTimeout(function() {
+                $('input.highcharts-range-selector', $(chart.container).parent())
+                    .datepicker();
+            }, 0);
+        })
+    );
+    console.log(charts[0])
+    
+    Highcharts.setOptions({
+        time: {
+            timezoneOffset: -11 * 60
+        }
+    });
+
+}
+function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6,fogdata7,fogdata8) {
+    document.getElementById('curvspred-div').style["display"] = "block";
+
+    var charts = []
+    charts.push(
+        Highcharts.stockChart('curvspred', {
+            chart: {
+                height: 600,
+                events: {
+                    load: function () {
+                        $(".highcharts-legend-item path").attr('stroke-width', 4);
+                        
+                    },
+                    redraw: function () {
+                        $(".highcharts-legend-item path").attr('stroke-width', 4);
+                        
+                    }
+                }
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        chart: {
+                            height: 400
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        navigator: {
+                            enabled: false
+                        }
+                    }
+                }]
+            },
+            scrollbar: {
+                barBackgroundColor: 'gray',
+                barBorderRadius: 7,
+                barBorderWidth: 0,
+                buttonBackgroundColor: 'gray',
+                buttonBorderWidth: 0,
+                buttonBorderRadius: 7,
+                trackBackgroundColor: 'none',
+                trackBorderWidth: 1,
+                trackBorderRadius: 8,
+                trackBorderColor: '#CCC'
+            },
+            plotOptions: {
+                series: {
+                    events: {
+                        afterAnimate: function() {
+                            var arr = []
+                            var text="<div><b>RMSE for T+0.5 : "
+                            var countn=0,
+                            sum=0,
+                            valu
+
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[0].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[0].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text +="</b></div><b><div>RMSE for T+1  : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[2].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[2].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text+="</b></div><div><b>RMSE for T+1.5 : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[3].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[3].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text+="</b></div><div><b>RMSE for T+2  : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[4].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[4].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text+="</b></div><div><b>RMSE for T+2.5 : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[5].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[5].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text+="</b></div><div><b>RMSE for T+3  : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[6].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[6].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu
+                            arr.push(valu)
+                            text+="</b></div><div><b>RMSE for T+6  : "
+                            countn=0
+                            sum=0
+                            for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                                var k=charts[0].series[7].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                                if(k!=-1){
+                                    var tv = charts[0].series[1].processedYData[i];
+                                    var pv = charts[0].series[7].processedYData[k];
+                                    sum = sum + Math.pow(tv-pv,2)
+                                    countn = countn + 1
+                                }
+                            }
+                            sum = sum/countn;
+                            valu = Math.pow(sum,0.5)
+                            text += valu+"</b></div>"
+                            arr.push(valu)
+                            
+                            console.log(text)
+                            // document.getElementById('rmse').innerHTML = text
+                            rmsechart(arr)
+                            
+                        }
+                    }
+                }
+            },
+            rangeSelector: {
+                buttons: [{
+                        type: 'day',
+                        count: 1,
+                        text: '1d'
+                    }, {
+                        type: 'week',
+                        count: 1,
+                        text: '1w'
+                    },
+                    {
+                        type: 'month',
+                        count: 1,
+                        text: '1m'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }
+                ],
+                inputEnabled: true,
+                selected: 0,
+
+            },
+            title: {
+                text: fs + ' Real-Data VS Predicted-Data',
+                style:{
+                    color: "#333333", 
+                    fontSize: "20px" 
+                }
+            },
+            xAxis: {
+                plotLines: [{
+                    color: '#FF0000', // Red
+                    width: 2,
+                    // value: fogdata1[fogdata1.length-1][0],
+                }],
+                // events: {
+                //     afterSetExtremes: function(e) {
+                //         charts.forEach(function(chart, i) {
+                //             if (i !== 0) {
+                //                 chart.xAxis[0].setExtremes(e.min, e.max)
+                //             }
+                //         })
+                //     }
+
+                // },
+                events: {
+                    afterSetExtremes: function(e) {
+                        var arr = []
+                        var text="<div><b>RMSE for T+0.5 : "
+                        var countn=0,
+                        sum=0,
+                        valu
+
+                        for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                            var k=charts[0].series[0].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                            if(k!=-1){
+                                var tv = charts[0].series[1].processedYData[i];
+                                var pv = charts[0].series[0].processedYData[k];
+                                sum = sum + Math.pow(tv-pv,2)
+                                countn = countn + 1
+                            }
+                        }
+                        sum = sum/countn;
+                        valu = Math.pow(sum,0.5)
+                        text += valu
+                        arr.push(valu)
+                        text +="</b></div><b><div>RMSE for T+1  : "
+                        countn=0
+                        sum=0
+                        for(var i=0;i<charts[0].series[1].processedXData.length;i++){
+                            var k=charts[0].series[2].processedXData.indexOf(charts[0].series[1].processedXData[i])
+                            if(k!=-1){
+                                var tv = charts[0].series[1].processedYData[i];
+                                var pv = charts[0].series[2].processedYData[k];
+                                sum = sum + Math.pow(tv-pv,2)
+                                countn = countn + 1
+                            }
+                        }
+                        sum = sum/countn;
