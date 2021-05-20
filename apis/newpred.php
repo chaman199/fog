@@ -11,65 +11,64 @@ if (!$result) {
  echo "";
  exit;  
 }  
+// echo pg_num_rows($result);
 $arr = array();
 if (pg_num_rows($result) > 0) {
     while($row = pg_fetch_row($result)) {
-      
       $row[0] = strtotime($row[0])*1000;
       $arr[$row[0]] = $row;
-      
     }
 }
-$sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '425' order by prediction_time asc";
-$result = pg_query($conn, $sql);
-if (pg_num_rows($result) > 0) {
-    while($row = pg_fetch_row($result)) {
-      
-      $row[0] = strtotime($row[0])*1000;
-      $arr[$row[0]] = $row;
-      
-    }
-}
-$sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '420' order by prediction_time asc";
-$result = pg_query($conn, $sql);
-if (pg_num_rows($result) > 0) {
-    while($row = pg_fetch_row($result)) {
-      
-      $row[0] = strtotime($row[0])*1000;
-      $arr[$row[0]] = $row;
-      
-    }
-}
-$sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '415' order by prediction_time asc";
-$result = pg_query($conn, $sql);
-if (pg_num_rows($result) > 0) {
-    while($row = pg_fetch_row($result)) {
-      
-      $row[0] = strtotime($row[0])*1000;
-      $arr[$row[0]] = $row;
-      
-    }
-}
-$sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '410' order by prediction_time asc";
-$result = pg_query($conn, $sql);
-if (pg_num_rows($result) > 0) {
-    while($row = pg_fetch_row($result)) {
-      
-      $row[0] = strtotime($row[0])*1000;
-      $arr[$row[0]] = $row;
-      
-    }
-}
-$sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '405' order by prediction_time asc";
-$result = pg_query($conn, $sql);
-if (pg_num_rows($result) > 0) {
-    while($row = pg_fetch_row($result)) {
-      
-      $row[0] = strtotime($row[0])*1000;
-      $arr[$row[0]] = $row;
-      
-    }
-}
+if($_GET['model']==4){  $sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '425' order by prediction_time asc";
+  $result = pg_query($conn, $sql);
+  if (pg_num_rows($result) > 0) {
+      while($row = pg_fetch_row($result)) {
+        
+        $row[0] = strtotime($row[0])*1000;
+        $arr[$row[0]] = $row;
+        
+      }
+  }
+  $sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '420' order by prediction_time asc";
+  $result = pg_query($conn, $sql);
+  if (pg_num_rows($result) > 0) {
+      while($row = pg_fetch_row($result)) {
+        
+        $row[0] = strtotime($row[0])*1000;
+        $arr[$row[0]] = $row;
+        
+      }
+  }
+  $sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '415' order by prediction_time asc";
+  $result = pg_query($conn, $sql);
+  if (pg_num_rows($result) > 0) {
+      while($row = pg_fetch_row($result)) {
+        
+        $row[0] = strtotime($row[0])*1000;
+        $arr[$row[0]] = $row;
+        
+      }
+  }
+  $sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '410' order by prediction_time asc";
+  $result = pg_query($conn, $sql);
+  if (pg_num_rows($result) > 0) {
+      while($row = pg_fetch_row($result)) {
+        
+        $row[0] = strtotime($row[0])*1000;
+        $arr[$row[0]] = $row;
+        
+      }
+  }
+  $sql = "SELECT prediction_time,visibility_km,fog_type  FROM public.three_hour_fog_prediction where prediction_time >= '".$_GET['stime']."' and station_name = '".$_GET['station']."' and model_id = '405' order by prediction_time asc";
+  $result = pg_query($conn, $sql);
+  if (pg_num_rows($result) > 0) {
+      while($row = pg_fetch_row($result)) {
+        
+        $row[0] = strtotime($row[0])*1000;
+        $arr[$row[0]] = $row;
+        
+      }
+  }}
 ksort($arr);
 
 

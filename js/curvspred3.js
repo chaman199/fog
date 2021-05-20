@@ -23,8 +23,13 @@ function checkModel(element){
         return;
     }
     // var mn = element.getAttribute("modelno");
+    var tex=""
     var mn = element;
-    document.getElementById("model-choose").textContent = "Model "+mn
+    if(mn==4)
+        tex = "Gradient Boosting"
+    else 
+        tex = "Model "+mn
+    document.getElementById("model-choose").textContent = tex
     // if(mn==4){
     //     document.getElementById('mod4').style["display"] = "block";
     // }
@@ -40,6 +45,8 @@ $(document).on({
     },
     ajaxStop: function(){
         $("#page").LoadingOverlay("hide");
+    document.getElementById('footr').style["display"] = "block";
+
     }    
 });
 function onModelChange(element){
@@ -86,7 +93,7 @@ function onModelChange(element){
                 var ent = new Date(0);
                 ent.setUTCSeconds(data[0]/1000);
                 $.ajax({
-                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno="+mn+"&status=1",
+                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno="+mn+"&status=1",
                     success: function(result) {
                         var data = JSON.parse(result)
                         var dataLength = data.length,
@@ -105,7 +112,7 @@ function onModelChange(element){
                         etime.setUTCSeconds(data[dataLength-1][0]/1000);
                         
                         $.ajax({
-                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toLocaleString()+"&etime="+etime.toLocaleString()+"&status=0",
+                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toUTCString()+"&etime="+etime.toUTCString()+"&status=0",
                             success: function(result) {
                                 var data = JSON.parse(result)
                                 var dataLength = data.length,
@@ -135,7 +142,7 @@ function onModelChange(element){
                 var ent = new Date(0);
                 ent.setUTCSeconds(data[0]/1000);
                 $.ajax({
-                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=405&status=1",
+                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=405&status=1",
                     success: function(result) {
                         var data = JSON.parse(result)
                         var dataLength = data.length,
@@ -149,7 +156,7 @@ function onModelChange(element){
             
                         }
                         $.ajax({
-                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=410&status=1",
+                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=410&status=1",
                             success: function(result) {
                                 var data = JSON.parse(result)
                                 var dataLength = data.length,
@@ -163,7 +170,7 @@ function onModelChange(element){
                     
                                 }
                                 $.ajax({
-                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=415&status=1",
+                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=415&status=1",
                                     success: function(result) {
                                         var data = JSON.parse(result)
                                         var dataLength = data.length,
@@ -177,7 +184,7 @@ function onModelChange(element){
                             
                                         }
                                         $.ajax({
-                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=420&status=1",
+                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=420&status=1",
                                             success: function(result) {
                                                 var data = JSON.parse(result)
                                                 var dataLength = data.length,
@@ -191,7 +198,7 @@ function onModelChange(element){
                                     
                                                 }
                                                 $.ajax({
-                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=425&status=1",
+                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=425&status=1",
                                                     success: function(result) {
                                                         var data = JSON.parse(result)
                                                         var dataLength = data.length,
@@ -205,7 +212,7 @@ function onModelChange(element){
                                             
                                                         }
                                                         $.ajax({
-                                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=460&status=1",
+                                                            url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=460&status=1",
                                                             success: function(result) {
                                                                 var data = JSON.parse(result)
                                                                 var dataLength = data.length,
@@ -219,7 +226,7 @@ function onModelChange(element){
                                                     
                                                                 }
                                                                 $.ajax({
-                                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toLocaleString()+"&modelno=4&status=1",
+                                                                    url: "apis/curvspred.php?station=" + fs+"&etime="+ent.toUTCString()+"&modelno=4&status=1",
                                                                     success: function(result) {
                                                                         var data = JSON.parse(result)
                                                                         var dataLength = data.length,
@@ -236,7 +243,7 @@ function onModelChange(element){
                                                                         stime.setUTCSeconds(data[0][0]/1000);
                                                                         
                                                                         $.ajax({
-                                                                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toLocaleString()+"&etime="+ent.toLocaleString()+"&status=0",
+                                                                            url: "apis/curvspred.php?station=" + fs+"&stime="+stime.toUTCString()+"&etime="+ent.toUTCString()+"&status=0",
                                                                             success: function(result) {
                                                                                 var data = JSON.parse(result)
                                                                                 var dataLength = data.length,
@@ -274,6 +281,16 @@ function onModelChange(element){
         })
                             
     }
+    Highcharts.setOptions({
+        time: {
+            timezoneOffset: -11 * 60
+        },
+        lang: {
+            // Pre-v9 legacy settings
+            rangeSelectorFrom: 'From',
+            rangeSelectorTo: 'To'
+        }
+    });
 }
 function comparechart(fs, fogdata1,fogdata2) {
     document.getElementById('curvspred-div').style["display"] = "block";
@@ -346,7 +363,7 @@ function comparechart(fs, fogdata1,fogdata2) {
                     }
                 ],
                 inputEnabled: true,
-                selected: 0,
+                selected: 0
 
             },
             title: {
@@ -479,11 +496,7 @@ function comparechart(fs, fogdata1,fogdata2) {
     );
     console.log(charts[0])
     
-    Highcharts.setOptions({
-        time: {
-            timezoneOffset: -11 * 60
-        }
-    });
+    
 
 }
 function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6,fogdata7,fogdata8) {
@@ -503,7 +516,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                         $(".highcharts-legend-item path").attr('stroke-width', 4);
                         
                     }
-                }
+                },
+                spacingRight:0
             },
             responsive: {
                 rules: [{
@@ -548,7 +562,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[0].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[0].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -564,7 +578,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[2].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[2].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -580,7 +594,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[3].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[3].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -596,7 +610,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[4].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[4].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -612,7 +626,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[5].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[5].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -628,7 +642,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[6].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[6].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -644,7 +658,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             for(var i=0;i<charts[0].series[1].processedXData.length;i++){
                                 var k=charts[0].series[7].processedXData.indexOf(charts[0].series[1].processedXData[i])
                                 if(k!=-1){
-                                    var tv = charts[0].series[1].processedYData[i]*1.60934;
+                                    var tv = charts[0].series[1].processedYData[i];
                                     var pv = charts[0].series[7].processedYData[k];
                                     sum = sum + Math.pow(tv-pv,2)
                                     countn = countn + 1
@@ -654,10 +668,14 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             valu = Math.pow(sum,0.5)
                             text += valu+"</b></div>"
                             arr.push(valu)
+                            var sp = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                            sp.setUTCSeconds(charts[0].series[1].processedXData[0]/1000 + 19800);
                             
-                            console.log(text)
+                            var ep=new Date(0)
+                            ep.setUTCSeconds(charts[0].series[1].processedXData[charts[0].series[1].processedXData.length-1]/1000 + 19800)
+                            // console.log(text)
                             // document.getElementById('rmse').innerHTML = text
-                            rmsechart(arr)
+                            rmsechart(arr,sp.toLocaleString(),ep.toLocaleString())
                             
                         }
                     }
@@ -687,7 +705,7 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                     }
                 ],
                 inputEnabled: true,
-                selected: 0,
+                selected: 0
 
             },
             title: {
@@ -730,8 +748,10 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                                 countn = countn + 1
                             }
                         }
+
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text +="</b></div><b><div>RMSE for T+1  : "
@@ -747,7 +767,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text+="</b></div><div><b>RMSE for T+1.5 : "
@@ -763,7 +784,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text+="</b></div><div><b>RMSE for T+2  : "
@@ -779,7 +801,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text+="</b></div><div><b>RMSE for T+2.5 : "
@@ -795,7 +818,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text+="</b></div><div><b>RMSE for T+3  : "
@@ -811,7 +835,8 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu
                         arr.push(valu)
                         text+="</b></div><div><b>RMSE for T+6  : "
@@ -827,13 +852,19 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                             }
                         }
                         sum = sum/countn;
-                        valu = Math.pow(sum,0.5)
+                        console.log(sum,countn)
+                        valu = Math.sqrt(sum)
                         text += valu+"</b></div>"
                         arr.push(valu)
+                        var sp = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                        sp.setUTCSeconds(charts[0].series[1].processedXData[0]/1000 + 19800);
                         
-                        console.log(text)
+                        var ep=new Date(0)
+                        ep.setUTCSeconds(charts[0].series[1].processedXData[charts[0].series[1].processedXData.length-1]/1000 + 19800)
+                        // console.log(text)
                         // document.getElementById('rmse').innerHTML = text
-                        rmsechart(arr)
+                        // console.log(charts[0].series[1])
+                        rmsechart(arr,sp.toLocaleString(),ep.toLocaleString())
                         
                     }
 
@@ -1029,17 +1060,12 @@ function comparechart2(fs, fogdata1,fogdata2,fogdata3,fogdata4,fogdata5,fogdata6
                     .datepicker();
             }, 0);
         })
-    );
+    )
     
-    Highcharts.setOptions({
-        time: {
-            timezoneOffset: -11 * 60
-        }
-    });
 
 }
-function rmsechart(arr){
-    console.log(arr)
+function rmsechart(arr,sp,ep){
+    // console.log(arr)
     Highcharts.chart('rmsec',{
         chart:{
             type:'column',
@@ -1056,7 +1082,24 @@ function rmsechart(arr){
             categories: ['T+0.5','T+1','T+1.5','T+2','T+2.5','T+3','T+6'],
             crosshair:true
         },
+        legend: {
+            enabled: true,
+            itemStyle:{
+                fontSize:"15px"
+            }
+        },
+	yAxis:[{
+	    min:0,
+	    title:{
+		    text: 'Visibility (in km)',
+		    style: {
+		        fontSize: "16px",
+			color: "red"
+		    }
+	    }
+	}],
         series:[{
+	    name: "Time Range: "+sp+" to "+ep,
             data: arr,
             tooltip: {
                 pointFormat: '<b>{point.y}</b>',
@@ -1065,17 +1108,10 @@ function rmsechart(arr){
         }]
 
     })
+
+    
 }
 
-// arr =["Agartala", "Agatti Island", "Agra", "Ahmedabad", "Aizwal", "Allahabad", "Amritsar", "Aurangabad", "Baghdogra", "Kempegowda Bangalore ",
-// "HAL Airport Bangalore", "Baroda", "Belgaum", "Belgaum Airport", "Bhaunagar", "Bhopal", "Bhubaneswar", "Bhuj", "Calicut", "Chandigarh", "Coimbatore", "Cooch-behar", "Cuddapah", "Dehra Dun", "Indira Gandhi Delhi", "Safdarjung  Delhi", "Dimapur", "Durgapur", "Fursatganj", "Gaya", "Goa dabolim", "Gorakhpur",
-// "Guwahati", "Gwalior", "Hubli", "Begumpet  Hyderabad", "Rajiv Gandhi Hyderabad", "Imphal", "Indore", "Jabalpur", "Jaipur", "Jammu", "Jamshedpur", "Jharsuguda",
-// "Jodhpur", "Jorhat", "Kangra", "Kannur", "Khajuraho", "Kochi", "Kolhapur", "Kolkata", "Kota", "Kulu", "Leh", "Lilabari", "Lucknow", "Ludhiaha", "Madras","Madurai", "Mangalore", "Mohanbari", "Juhu Mumbai", "Chhatrapati Mumbai", "Mysore", "Nagpur", "Nainital", "Nanded", "Patina", "Pendicherry", "Porbandar",
-// "Port Blair", "Pune", "Swami Vivekananda Raipur", "Raipur", "Rajahmundry", "Rajkot", "Ranchi", "Salem", "Shillong", "Shimla", "Shirdi", "Srinagar", "Surat",
-// "Tezpur", "Thoise", "Tiruchirappalli", "Tirupeti", "Trivandrum", "Tuticorin", "Udaipur", "Khajuraho ", "Unknown", "Varanasi", "Lal Bahadur Varanasi", "Vijayawada", "Vizagapatam"]
-
-// arr = ["Bhandup","Mumbai","Visakhapatnam","Coimbatore","Delhi","Bangalore","Pune","Nagpur","Lucknow","Vadodara","Indore","Jalalpur","Bhopal","Kolkata","Kanpur","New Delhi","Faridabad","Rajkot","Ghaziabad","Chennai","Meerut","Agra","Jaipur","Jabalpur","Varanasi","Allahabad","Hyderabad","Noida","Howrah","Thane","Patiala","Chakan","Ahmedabad","Manipala","Mangalore","Panvel","Udupi","Rishikesh","Gurgaon","Mathura","Shahjahanpur","Bagpat","Sriperumbudur","Chandigarh","Ludhiana","Palakkad","Kalyan","Valsad","Ulhasnagar","Bhiwani","Shimla","Dehradun","Patna","Unnao","Tiruvallur","Kanchipuram","Jamshedpur","Gwalior","Karur","Erode","Gorakhpur","Ooty","Haldwani","Bikaner","Puducherry","Nalbari","Bellary","Vellore","Naraina","Mandi","Rupnagar","Jodhpur","Roorkee","Aligarh","Indraprast","Karnal","Tanda","Amritsar","Raipur","Pilani","Bilaspur","Srinagar","Guntur","Kakinada","Warangal","Tirumala - Tirupati","Nizamabad","Kadapa","Kuppam","Anantpur","Nalgonda","Potti","Nellore","Rajahmundry","Bagalkot","Kurnool","Secunderabad","Mahatma","Bharuch","Miraj","Nanded","Anand","Gandhinagar","Bhavnagar","Morvi","Aurangabad","Modasa","Patan","Solapur","Kolhapur","Junagadh","Akola","Bhuj","Karad","Jalgaon Jamod","Chandrapur","Maharaj","Dhule","Ponda","Dahod","Navsari","Panjim","Patel","Nashik","Amravati","Somnath","Ganpat","Karwar","Davangere","Raichur","Nagara","Kushalnagar","Hassan","Hubli","Bidar","Belgaum","Mysore","Dharwad","Kolar","TumkÅ«r","Tiruchi","Thiruvananthapuram","Kozhikode","Thrissur","Madurai","Thalassery","Kannur","Karaikudi","Thanjavur","Manor","Idukki","Thiruvarur","Alappuzha","Gandhigram","Kochi","Annamalainagar","Amet","Kottarakara","Kottayam","Tirunelveli","Mohan","Salem","Attingal","Chitra","Chengannur","Guwahati","Kalam","Ranchi","Shillong","Gangtok","Srikakulam","Tezpur","Bhubaneswar","Imphal","Sundargarh","Arunachal","Manipur","Bihar Sharif","Mandal","Dibrugarh","Darbhanga","Gaya","Bhagalpur","Kunwar","Barddhaman","Jadabpur","Kalyani","Cuttack","Barpeta","Jorhat","Kharagpur","Medinipur","Agartala","Saranga","Machilipatnam","Dhanbad","Silchar","Dumka","Kokrajhar","Bankura","Jalpaiguri","Durgapur","Kalinga","Palampur","Jammu","Dwarka","Faridkot","Udaipur","Raigarh","Hisar","Solan","Ajmer","Lala","Gurdaspur","Sultanpur","Jhansi","Vidisha","Jagdalpur","Dipas","Sawi","Etawah","Saharanpur","Ujjain","Kangra","Bhilai","Rohtak","Haryana","Ambala","Bareilly","Bhoj","Kapurthala Town","Sangrur","Pusa","Sagar","Rewa","Bhawan","Rampur","Bhadohi","Cuddalore","Khopoli","Bali","Bhiwandi","Vasai","Badlapur","Sambalpur","Raurkela","Brahmapur","Visnagar","Surendranagar","Ankleshwar","Dahanu","Silvassa","Jamnagar","Dhansura","Muzaffarpur","Wardha","Bodhan","Parappanangadi","Malappuram","Vizianagaram","Mavelikara","Pathanamthitta","Satara","Janjgir","Gold","Himatnagar","Bodinayakkanur","Gandhidham","Mahabalipuram","Nadiad","Virar","Bahadurgarh","Kaithal","Siliguri","Tiruppur","Ernakulam","Jalandhar","Barakpur","Kavaratti","Ratnagiri","Moga","Hansi","Sonipat","Bandra","Aizawl","Itanagar","Nagar","Ghatkopar","Chen","Powai","Bhimavaram","Bhongir","Medak","Karimnagar","Narsapur","Vijayawada","Markapur","Mancherial","Sangli","Moradabad","Alipur","Ichalkaranji","Devgarh","Yavatmal","Hinganghat","Madgaon","Verna","Katra","Bilaspur","Uttarkashi","Muktsar","Bhatinda","Pathankot","Khatauli","Vikasnagar","Kollam","Kovilpatti","Kovvur","Paloncha","Vasco","Alwar","Bijapur","Tinsukia","Ratlam","Kalka","Ladwa","Rajpura","Batala","Hoshiarpur","Katni","Bhilwara","Jhajjar","Lohaghat","Mohali","Dhuri","Thoothukudi","Sivakasi","Coonoor","Shimoga","Kayamkulam","Namakkal","Dharmapuri","Aluva","Antapur","Tanuku","Eluru","Balasore","Hingoli","Quepem","Assagao","Betim","Cuncolim","Ahmednagar","Goa","Caranzalem","Chopda","Petlad","Raipur","Villupuram","Shoranur","Dasua","Gonda","Yadgir","Palladam","Nuzvid","Kasaragod","Paonta Sahib","Sarangi","Anantapur","Kumar","Kaul","Panipat","Uppal","Teri","Tiruvalla","Jamal","Chakra","Narasaraopet","Dharamsala","Ranjan","Garhshankar","Haridwar","Chinchvad","Narela","Aurangabad","Sion","Kalamboli","Chittoor","Wellington","Nagapattinam","Karaikal","Pollachi","Thenkasi","Aranmula","Koni","Ariyalur","Ranippettai","Kundan","Lamba Harisingh","Surana","Ghana","Lanka","Kataria","Kotian","Khan","Salt Lake City","Bala","Vazhakulam","Paravur","Nabha","Ongole","Kaladi","Jajpur","Thenali","Mohala","Mylapore","Bank","Khammam","Ring","Maldah","Kavali","Andheri","Baddi","Mahesana","Nila","Gannavaram","Cumbum","Belapur","Phagwara","Rander","Siuri","Bulandshahr","Bilimora","Guindy","Pitampura","Baharampur","Dadri","Boisar","Shiv","Multi","Bhadath","Ulubari","Palghar","Puras","Sikka","Saha","Godhra","Dam Dam","Ekkattuthangal","Sahibabad","Kalol","Bardoli","Wai","Shirgaon","Nehra","Mangalagiri","Latur","Kottakkal","Rewari","Ponnani","Narayangaon","Hapur","Kalpetta","Khurja","Ramnagar","Neral","Sendhwa","Talegaon Dabhade","Kargil","Manali","Jalalabad","Palani","Sirkazhi","Krishnagiri","Hiriyur","Muzaffarnagar","Kashipur","Gampalagudem","Siruseri","Manjeri","Raniganj","Mahim","Bhusawal","Tirur","Sattur","Angul","Puri","Khurda","Dharavi","Ambur","Vashi","Arch","Colaba","Hosur","Kota","Hugli","Anantnag","Murshidabad","Jharsuguda","Jind","Neyveli","Vaniyambadi","Srikalahasti","Liluah","Pali","Bokaro","Sidhi","Asansol","Darjeeling","Kohima","Shahdara","Chandannagar","Nadgaon","Haripad","Sitapur","Vapi","Bambolim","Baidyabati","Connaught Place","Singtam","Shyamnagar","Sikar","Choolai","Mayapur","Puruliya","Habra","Kanchrapara","Goregaon","Tiptur","Kalpakkam","Serampore","Konnagar","Port Blair","Canning","Mahad","Alibag","Pimpri","Panchgani","Karjat","Vaikam","Mhow","Lakhimpur","Madhoganj","Kheri","Gudivada","Avanigadda","Nayagarh","Bemetara","Bhatapara","Ramgarh","Dhubri","Goshaingaon","Bellare","Puttur","Narnaul","Porbandar","Keshod","Dhrol","Kailaras","Morena","Deolali","Banda","Orai","Fatehpur","Mirzapur","Adilabad","Pithapuram","Ramavaram","Amalapuram","Champa","Ambikapur","Korba","Pehowa","Yamunanagar","Shahabad","Hamirpur","Gulbarga","Sagar","Bhadravati","Sirsi","Honavar","Siruguppa","Koppal","Gargoti","Kankauli","Jalna","Parbhani","Koraput","Barpali","Jaypur","Banswara","Tindivanam","Mettur","Srirangam","Deoria","Basti","Padrauna","Budaun","Bolpur","Gujrat","Balurghat","Binnaguri","Guruvayur","Chandauli","Madikeri","Piduguralla","Vinukonda","Berasia","Sultans Battery","Ramanagaram","Angadipuram","Mattanur","Gobichettipalayam","Banga","Sibsagar","Namrup","North Lakhimpur","Dhenkanal","Karanja","Cheyyar","Vandavasi","Arakkonam","Tiruvannamalai","Akividu","Tadepallegudem","Madanapalle","Puttur","Edavanna","Kodungallur","Marmagao","Sanquelim","Sakri","Shahdol","Satna","Thasra","Bundi","Kishangarh","Firozpur","Kot Isa Khan","Barnala","Sunam","Pithoragarh","Jaspur","Jhargram","Dimapur","Churachandpur","Raxaul","Motihari","Munger","Purnea","Mannargudi","Kumbakonam","Eral","Nagercoil","Kanniyakumari","Ramanathapuram","Sivaganga","Rajapalaiyam","Srivilliputhur","Suratgarh","Gohana","Sirsa","Fatehabad","Nurpur","Chamba","Khergam","Dindigul","Pudukkottai","Kaimganj","Tarn Taran","Khanna","Irinjalakuda","Sehore","Parra","Dicholi","Chicalim","Saligao","Changanacheri","Igatpuri","Sangamner","Ganganagar","Kanhangad","Chidambaram","Chittur","Nilambur","Arvi","Jalesar","Kasganj","Chandausi","Beawar","Bharatpur","Kathua","Chalisgaon","Karamsad","Peranampattu","Arani","Payyanur","Pattambi","Pattukkottai","Pakala","Vikarabad","Bhatkal","Rupnarayanpur","Kulti","Koch Bihar","Nongstoin","Budbud","Balangir","Kharar","Mukerian","Mansa","Punalur","Mandya","Nandyal","Dhone","Candolim","Aldona","Solim","Daman","Koothanallur","Sojat","Alanallur","Kagal","Jhunjhunun","Sirhind","Kurali","Khinwara","Machhiwara","Talwandi Sabo","Malpur","Dhar","Medarametla","Pileru","Yercaud","Ottappalam","Alangulam","Palus","Chiplun","Durg","Damoh","Ambarnath","Haveri","Mundgod","Mandvi","Behala","Fort","Bela","Balana","Odhan","Mawana","Firozabad","Bichpuri","Almora","Pauri","Azamgarh","Phaphamau","Nongpoh","Gangrar","Jhalawar","Nathdwara","Jaisalmer","Pushkar","Sirohi","Baroda","Ambah","Ambejogai","Ambad","Osmanabad","Betalbatim","Gangapur","Dindori","Yeola","Pandharpur","Neri","Umred","Patelguda","Patancheru","Singarayakonda","Peddapuram","Gadag","ChikmagalÅ«r","Chikodi","Amer","Chintamani","Tambaram","Palayam","Karamadai","Omalur","Kuzhithurai","Faizabad","Thirumangalam","Kodaikanal","Devipattinam","Dharapuram","Rudrapur","Talcher","Haldia","Karsiyang","Sandur","Bapatla","Shamsabad","Kandi","Ramapuram","Anchal","Trimbak","Calangute","Arpora","Khargone","Mandla","Kalan","Pachmarhi","Dhamtari","Kumhari","Aundh","Tala","Tuljapur","Botad","Sidhpur","Sanand","Nagwa","Mussoorie","Vadamadurai","Sholavandan","Pochampalli","Perundurai","Lalgudi","Ponneri","Mount Abu","Vadner","Shanti Grama","Nalagarh","Pahalgam","Dinanagar","Jatani","Ganga","Barmer","Hoshangabad","Khajuraho Group of Monuments","Betul","Sangola","Tirumala","Mirza Murad","Attur","Budha","Pala","Tonk","Koni","Rajpur","Shrigonda","Hazaribagh","Nagaur","Mandapeta","Nabadwip","Nandurbar","Nazira","Kasia","Bargarh","Kollegal","Shahkot","Jagraon","Channapatna","Madurantakam","Kamalpur","Ranaghat","Mundra","Mashobra","Rama","Chirala","Bawana","Dhaka","Mahal","Chitradurga","Mandsaur","Dewas","Sachin","Andra","Kalkaji Devi","Pilkhuwa","Mehra","Chhachhrauli","Samastipur","Bangaon","Ghatal","Jayanti","Belgharia","Kamat","Dhariwal","Morinda","Kottagudem","Suriapet","Mahesh","Sirwani","Kanakpura","Mahajan","Sodhi","Chand","Nagal","Hong","Raju","Tikamgarh","Parel","Jaynagar","Mill","Khambhat","Ballabgarh","Begusarai","Shahapur","Banka","Golaghat","Palwal","Kalra","Chandan","Maru","Nanda","Chopra","Kasal","Rana","Chetan","Charu","Arora","Chhabra","Bishnupur","Manu","Karimganj","Ellora Caves","Adwani","Amreli","Soni","Sarwar","Balu","Rawal","Darsi","Nandigama","Mathan","Panchal","Jha Jha","Hira","Manna","Amal","Kheda","Abdul","Roshan","Bhandari","Binavas","Hari","Nandi","Rajapur","Suman","Sakri","Khalapur","Dangi","Thiruthani","Bawan","Basu","Kosamba","Medchal","Kakdwip","Kamalpura","Dogadda","Charan","Basirhat","Nagari","Kangayam","Sopara","Nadia","Mahulia","Alipur","Hamirpur","Fatehgarh","Bagh","Naini","Karari","Ajabpur","Jaunpur","Iglas","Pantnagar","Dwarahat","Dasna","Mithapur","Bali","Nilokheri","Kolayat","Haripur","Dang","Chhota Udepur","Matar","Sukma","Guna","Dona Paula","Navelim","Vainguinim","Curchorem","Balaghat","Bhagwan","Vijapur","Sinnar","Mangaon","Hadadi","Bobbili","Yanam","Udaigiri","Balanagar","Kanigiri","Muddanuru","Panruti","Proddatur","Puliyur","Perambalur","Turaiyur","Tiruchchendur","Shadnagar","Markal","Sultan","Rayagada","Kaniyambadi","Vandalur","Sangam","Katoya","Gudur","Farakka","Baramati","Tohana"];
-// arr = ["Palam,Delhi", "Agartala", "Agatti Island", "Agra", "Ahmedabad", "Aizwal", "Allahabad", "Amritsar", "Aurangabad", "Baghdogra", "Bangalore", "Bangalore", "Baroda", "Belgaum", "Belgaum", "Bhaunagar", "Bhopal", "Bhubaneswar", "Bhuj", "Calicut", "Chandigarh", "Coimbatore", "Cooch-behar", "Cuddapah", "Dehra Dun", "Safdarjung,Delhi", "Dimapur", "Durgapur", "Fursatganj", "Gaya", "Goa\/dabolim", "Gorakhpur", "Guwahati", "Gwalior", "Hubli", "Hyderabad", "Hyderabad", "Imphal", "Indore", "Jabalpur", "Jaipur", "Jammu", "Jamshedpur", "Jharsuguda", "Jodhpur", "Jorhat", "Kangra", "Kannur", "Khajuraho", "Kochi", "Kolhapur", "Kolkata", "Kota", "Kulu", "Leh", "Lilabari", "Lucknow", "Ludhiaha", "Madras", "Madurai", "Mangalore", "Mohanbari", "Mumbai", "Mumbai", "Mysore", "Nagpur", "Nainital", "Nanded", "Patina", "Pendicherry", "Porbandar", "Port Blair", "Pune", "Raipur", "Raipur", "Rajahmundry", "Rajkot", "Ranchi", "Salem", "Shillong", "Shimla", "Shirdi", "Srinagar", "Surat", "Tezpur", "Thoise", "Tiruchirappalli", "Tirupeti", "Trivandrum", "Tuticorin", "Udaipur", "Unknown", "Unknown", "Varanasi", "Varanasi", "Vijayawada", "Vizagapatam"];
 autocomplete(document.getElementById("myInputFirst"));
 
 function autocomplete(inp) {

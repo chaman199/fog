@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <!-- <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png"> -->
+    <link rel="icon" type="image/png" href="./assets/img/iitk.png">
     <title>Fog Prediction</title>
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -73,7 +73,7 @@
 
     <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
         <div class="container">
-            <a class="navbar-brand mr-md-6" href="/fog-prediction/"><img class="img-fluid" src="./assets/img/fps1.png" style="height: 60px;width: 350px;"></a>
+            <a class="navbar-brand mr-md-6" href="/fog-prediction/"><img class="img-fluid" src="./assets/img/fps1.png" style="height:60px;width: 350px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -117,6 +117,8 @@
                             <a class="dropdown-item" href="comparedata.html" target="_blank">Compare Results</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="curvspred.html" target="_blank">Past Predictions</a>
+                            <!-- <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="about.html" target="_blank">Credits</a> -->
                         </div>
                     </li>
                 </ul>
@@ -129,8 +131,8 @@
     <!-- Navigation bar ends -->
 
 
-    <div class="wrapper">
-        <section class="section section-shaped" style="padding-bottom:2rem;">
+    <div class="wrapper container-fluid">
+        <section class="section section-shaped rounded" style="padding-bottom:2rem;">
             <div class="shape shape-primary" style="height: 100px;">
             </div>
         </section>
@@ -169,7 +171,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md">
-                                <h3 id="cityname">City : Select the city</h3><span id="latlong" style="visibility: hidden;"></span>
+                                <h3 id="cityname">City: Select the city</h3><span id="latlong" style="visibility: hidden;"></span>
                             </div>
                             <div class="col-md-10" id="data-detail">
 
@@ -263,10 +265,13 @@
 
 
 
-    <section class="section  pb-0" style="padding-top:1rem;margin-bottom:1rem">
+    <section class="section pb-0" style="padding-top:1rem;margin-bottom:1rem">
         <div class="container-fluid">
             <div class="card shadow">
-                <div class="card-body bg-gradient-primary rounded " style="padding:1rem 2rem 1rem 2rem;">
+                <div class="card-body bg-gradient-primary rounded ">
+                    <div class="row justify-content-center" style="color:white;">
+                        <p>© Fog Prediction , IIT Kanpur. All rights reserved.</p>
+                    </div>
                 </div>
             </div>
         </div>

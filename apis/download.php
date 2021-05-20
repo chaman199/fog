@@ -5,17 +5,16 @@ if (!$conn) {
  echo "An error occurred.\n";  
  exit;  
 }  
-// $result = pg_query($conn, "SELECT date_time,visibility,air_temperature,relative_humidity,wind_speed,wind_direction FROM public.meteorological_data");  
-// $sql =   "SELECT date_time,visibility,air_temperature,relative_humidity,wind_speed,wind_direction FROM public.meteorological_data where station = (select station_id from public.location where station_name='".$_GET['station']."') order by date_time desc limit 2000";
-// $sql = "SELECT station_name from public.location";
-// $result = pg_query($conn, $sql);
-// if (!$result) {  
-//  echo "An error occurred.\n";
-//  exit;  
-// } 
-$select = "SELECT date_time,visibility_miles,air_temperature_fahrenheit,relative_humidity_percentage,wind_speed_knots,wind_direction_degrees FROM public.meteorological_data where station = (select station_id from public.location where station_name='".$_GET['station']."') and date_time > '".$_GET['sdate']."' and date_time < '".$_GET['edate']."' order by date_time desc";
+
+//$select = "SELECT date_time,visibility_miles,air_temperature_fahrenheit,relative_humidity_percentage,wind_speed_knots,wind_direction_degrees FROM public.meteorological_data where station = (select station_id from public.location where station_name='".$_GET['station']."') and date_time > '".$_GET['sdate']."' and date_time < '".$_GET['edate']."' order by date_time desc";
+$select = "SELECT * FROM public.meteorological_data where station = (select station_id from public.location where station_name='".$_GET['station']."') and date_time > '".$_GET['sdate']."' and date_time < '".$_GET['edate']."' order by date_time desc";
+
 $export = pg_query ( $conn, $select );
 // echo "chaman";
+header("Content-type: application/octet-stream");
+header("Content-Disposition: attachment; filename=your_desired_name.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
 $fields = pg_num_fields ( $export );
 for ( $i = 0; $i < $fields; $i++ )
 {
@@ -47,10 +46,7 @@ if ( $data == "" )
     $data = "\n(0) Records Found!\n";                        
 }
 
-header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=your_desired_name.xls");
-header("Pragma: no-cache");
-header("Expires: 0");
+
 print "$header\n$data";
 // $val = "[";    
 //     $arr = array();

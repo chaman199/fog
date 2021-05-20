@@ -118,7 +118,7 @@ function highChartFunc(cityid,model) {
         d.setUTCSeconds(data[dataLength-1][0]/1000);
         // console.log(fogdata2)
 
-        $.ajax({url: "apis/newpred.php?stime="+d.toLocaleString()+"&station="+cityid+"&model="+model, async: false,success: function(data){
+        $.ajax({url: "apis/newpred.php?stime="+d.toUTCString()+"&station="+cityid+"&model="+model, async: false,success: function(data){
             console.log(data)
             var data = JSON.parse(data)
             datalen = data.length
@@ -204,7 +204,8 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                     }]
                 },
                 navigator: {
-                    enabled: false
+                    enabled: true,
+                    height:30
                 },
                 scrollbar: {
                     barBackgroundColor: 'gray',
@@ -288,6 +289,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                         document.getElementById("data-detail").innerHTML = '<div style="font-size:26px;"><div style="color:green">Predicted Visibility: ' + charts[0].series[1].points[this.index - k].y.toFixed(2) + " km</div><div>";
 
                                     }
+                                    $(".highcharts-markers path").attr('visibility', 'visible')
                                 },
                                 mouseOut: function(e) {
                                     console.log(e)
@@ -299,7 +301,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                     }
                                     // document.getElementById("data-detail").innerHTML = "<h3><div>Prediction Model: "+model+"</div><div>Current Values:</div><div>Visibility: " + current[0] + " km   <\div><div>Temperature: " + current[1] + "°C    <\div><div>Relative Humidity: " + current[2] + "%    <\div><div>Wind: " + current[3] + "Km/h " + current[4] + "°N" + " <\div></h3>   ";
                                     document.getElementById("data-detail").innerHTML = '<div style="font-size:26px;"><div>Current Values:</div><div style="color:red">Visibility: ' + current[0] + " km   </div><div>Temperature: " + current[1] + "°C    </div><div>Relative Humidity: " + current[2] + "%    </div><div>Wind: " + current[3] + "km/h " + current[4] + "°N" + " </div></div>   ";
-                                    
+                                    $(".highcharts-markers path").attr('visibility', 'hidden')
                                 }
                             }
                         }
@@ -533,6 +535,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                         color: '#C0C0C0'
                                     });
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'visible')
 
                             },
                             mouseOut: function(e) {
@@ -543,6 +546,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                     charts[i].xAxis[0].removePlotLine('xPlotLine');
                                     charts[i].tooltip.hide();
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'hidden')
 
                             }
                         }
@@ -706,6 +710,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                         color: '#C0C0C0'
                                     });
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'visible')
 
                             },
                             mouseOut: function(e) {
@@ -716,6 +721,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                     charts[i].xAxis[0].removePlotLine('xPlotLine');
                                     charts[i].tooltip.hide();
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'hidden')
 
                             }
                         }
@@ -857,6 +863,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                         color: '#C0C0C0'
                                     });
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'visible')
 
                             },
                             mouseOut: function(e) {
@@ -867,6 +874,7 @@ function fogFunction(cityid, fogdata, fogdata2, temperaturedata, humiditydata, w
                                     charts[i].xAxis[0].removePlotLine('xPlotLine');
                                     charts[i].tooltip.hide();
                                 }
+                                $(".highcharts-markers path").attr('visibility', 'false')
 
                             }
                         }
@@ -1125,7 +1133,7 @@ function chartmake(cityname,arra) {
             {
                 $("#page").LoadingOverlay("show");
                 document.getElementById('myInput').value = ev.mapObject.title;
-                document.getElementById('cityname').innerHTML = "City :" + ev.mapObject.title;
+                document.getElementById('cityname').innerHTML = "City: " + ev.mapObject.title;
                 
                 chart.dataProvider.images[j].label="";
                 chart.dataProvider.images[j].color="rgba(75,216,181,0.8)"

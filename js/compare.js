@@ -35,7 +35,7 @@ $(document).on({
     }    
 });
 $("#compare-button").click(function() {
-    
+    document.getElementById('footr').style["display"] = "none";
         var select = document.getElementById('stations_in');
         document.getElementById('compchart-div').style["display"] = "none";
         document.getElementById('TempComp-div').style["display"] = "none";
@@ -716,6 +716,7 @@ function comparechart(selected, fogdata, temperaturedata, humiditydata, winddata
     charts[3].redraw();
     charts[0].redraw();
 
+    document.getElementById('footr').style["display"] = "block";
 }
 $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',

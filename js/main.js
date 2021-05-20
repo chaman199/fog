@@ -860,7 +860,7 @@ function downloadFile() {
     var cName = document.getElementById("myInput").value;
 
     $.ajax({
-        url: 'download.php?station=' + cName + '&sdate=' + sdate + '&edate=' + edate,
+        url: 'apis/download.php?station=' + cName + '&sdate=' + sdate + '&edate=' + edate,
         method: 'GET',
         xhrFields: {
             responseType: 'blob'
